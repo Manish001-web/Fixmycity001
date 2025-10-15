@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>FixMyCity India</title>
+	<link rel="stylesheet" href="mumhack.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+	<header class="topbar">
+		<div class="profile-icon" onclick="openProfile()">
+			<img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="Profile" />
+        <nav>
+        <pre>
+			
+		                                                                                                                                                             <a href="#home" id="homes" class="active" onclick="showSection('home')">Home</a>        <a href="#dashboard" id="dashbo" onclick="showSection('dashboard')">Dashboard</a>               <a href="#about" id="abou" onclick="showSection('about')">About</a>          <a href="#terms" id="term" onclick="showSection('terms')">Terms & Conditions</a>           <a href="#privacy" id="priva" onclick="showSection('privacy')">Privacy Policy</a>
+            </pre>		
+        </nav>
+		</div>
+        
+		<button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+			<span></span><span></span><span></span>
+		</button>
+	</header>
+	<div class="main-content">
+		<section id="dashboard-section" class="main-section hidden">
+			<h2>Public Dashboard: Top Civic Problems</h2>
+			<div id="dashboard-list"></div>
+		</section>
+	</header>
+	<main>
+		<section id="home-section" class="main-section">
+			<div class="switch-tabs">
+				<button id="tab-resp" class="tab-btn active" onclick="switchTab('responsibility')">My Responsibility</button>
+				<button id="tab-scheme" class="tab-btn" onclick="switchTab('scheme')">My Government Scheme</button>
+			</div>
+			<div id="responsibility" class="tab-content active">
+				<h2>My Responsibility</h2>
+				<form id="complaint-form" class="complaint-form" enctype="multipart/form-data" onsubmit="submitComplaint(event)">
+					<label for="complaint-text">Describe your problem:</label>
+					<textarea id="complaint-text" name="complaint" rows="3" placeholder="Describe the issue (e.g., pothole, garbage, etc.)" required></textarea>
+					<div class="upload-row">
+						<label for="photo-upload" class="upload-label">Upload Photo:</label>
+						<input type="file" id="photo-upload" name="photo" accept="image/*" onchange="previewPhoto(event)">
+						<img id="photo-preview" class="photo-preview" style="display:none;"/>
+					</div>
+					<div class="voice-row">
+						<button type="button" class="voice-btn" onclick="startVoiceInput()">
+							<img src="https://img.icons8.com/ios-filled/24/1976d2/microphone.png" alt="Voice"/> Voice Complaint
+						</button>
+						<span id="voice-status"></span>
+					</div>
+					<textarea id="voice-result" class="voice-result" rows="2" placeholder="Voice transcription will appear here..." readonly style="display:none;"></textarea>
+					<button type="submit" class="submit-btn">Submit Complaint</button>
+				</form>
+				<div id="complaint-success" class="success-msg" style="display:none;">Complaint registered successfully!</div>
+			</div>
+			<div id="scheme" class="tab-content">
+				<h2>My Government Schemes</h2>
+				<form id="scheme-form" class="scheme-form" onsubmit="checkSchemes(event)">
+					<div class="form-row">
+						<label for="age">Age:</label>
+						<input type="number" id="age" name="age" min="18" max="60" required>
+					</div>
+					<div class="form-row">
+						<label for="gender">Gender:</label>
+						<select id="gender" name="gender" required>
+							<option value="">Select</option>
+							<option value="male">Male</option>
+							<option value="female">Female</option>
+							<option value="other">Other</option>
+						</select>
+					</div>
+					<div class="form-row">
+						<label for="occupation">Occupation:</label>
+						<select id="occupation" name="occupation" required>
+							<option value="">Select</option>
+							<option value="student">Student</option>
+							<option value="salaried">Salaried</option>
+							<option value="self-employed">Self-employed</option>
+							<option value="unemployed">Unemployed</option>
+							<option value="retired">Retired</option>
+                        </select>
+					</div>
+					<div class="form-row">
+						<label for="income">Annual Income (₹):</label>
+						<input type="number" id="income" name="income" min="0" required>
+					</div>
+					<div class="form-row">
+						<label for="state">State:</label>
+						<input type="text" id="state" name="state" placeholder="e.g., Maharashtra" required>
+					</div>
+					<button type="submit" class="submit-btn">Check Schemes</button>
+				</form>
+				<div id="schemes-result" class="schemes-result" style="display:none;"></div>
+				<div class="voice-row">
+					<button type="button" class="voice-btn" onclick="startSchemeVoiceBot()">
+						<img src="https://img.icons8.com/ios-filled/24/1976d2/microphone.png" alt="Voice"/> Voice Chatbot
+					</button>
+					<span id="scheme-voice-status"></span>
+				</div>
+			</div>
+		</section>
+		<section id="about-section" class="main-section hidden">
+			<h2>About FixMyCity</h2>
+			<p>FixMyCity empowers Indian citizens to report civic issues, track their status, and access government schemes. Our mission is to create cleaner, smarter, and more responsive cities.</p>
+		</section>
+		<section id="terms-section" class="main-section hidden">
+			<h2>Terms & Conditions</h2>
+			<p>By using FixMyCity, you agree to our terms and conditions. Please read them carefully before using the platform.</p>
+		</section>
+		<section id="privacy-section" class="main-section hidden">
+			<h2>Privacy Policy</h2>
+			<p>Your privacy is important to us. Learn how we protect your data and respect your rights as a user.</p>
+		</section>
+	</main>
+	<script>
+    function toggleMenu() {
+        const nav = document.getElementById('navLinks');
+        nav.classList.toggle('open');
+        document.getElementById('hamburger').classList.toggle('open');
+    }
+    </script>
+	<script src="mumhack.js" defer></script>
+</body>
+</html>
